@@ -1,0 +1,68 @@
+{% extends 'header.html' %}
+
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block title_status %}
+{{ group.name }}
+{% endblock %}
+
+{% block body_block %}
+
+<div class="row">
+	<div class="col-md-3">   </div>
+	<div class="col-md-6">
+		<center><img src= "{{ MEDIA_URL }}{{ group.logo }}" alt="" width=200px></center></p>
+		<table class="table table-bordered" >
+			<tr>
+				<th> Name </th>
+				<td> {{group.name}} </td>
+				<th> Abkürzung </th>
+				<td> {{group.abbrev}}</td>
+			</tr>
+			<tr>	<th>Webseite</th>	
+				<td><a href= {{ group.homepage }}>Homepage</a></td>
+				<th>Postfach</th>
+				<td>{{ group.postbox }}</td>
+			</tr>
+		</table>
+		<h4> Kontakte </h4>
+		<table class="table table-bordered">
+			<tr>
+				<th>Name</th>
+				<th>E-Mail</th>
+			</tr>
+				{% for contact in contacts %}
+					<tr>
+					<td style="text-align: left;" width="300px">{{ contact.name }}</td>
+					<td><a href= 'mailto:{{ contact.email }}'>{{ contact.email }}</a></td>
+					</tr>
+				{% endfor %}
+
+		</table>
+		<h4> Registrationen </h4>
+		<table class="table table-bordered">
+			<tr>
+				<th> Jahr </th>
+				<th> Form </th>
+				<th> Kommentar </th>
+				<th> Anzahl Mitglieder </th>
+			</tr>
+				{% for registration in registrations %}
+				<tr>
+				<td>{{ registration.date.year }}</td>
+				<td>{{ registration.get_form_display }}</td>
+				<td>{{ registration.comment }}</td>
+				<td>{{ registration.members }}</td>
+				</tr>
+				{% endfor %}
+		</table>
+	</div>
+</div>
+{% endblock %}

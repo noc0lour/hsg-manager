@@ -1,0 +1,23 @@
+{% extends 'header.html' %}
+
+{% block title_status %}
+Alle Hochschulgruppen
+{% endblock %}
+
+{% block body_block %}
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+	<h1>Hochschulgruppen</h1>
+	<table class="table table-striped">
+		<tr>
+			<th>Name</th>
+			<th>Abkürzung</th>
+		</tr>
+	{% for hsg in list %}
+	<tr><td><a href={% url 'hsg:group-detail' hsg.id %}>{{ hsg.name }}</a></td><td> {{ hsg.abbrev }}</td></tr>
+	{% endfor %}
+	</table>
+	</div>
+	<div class="col-md-2"></div>
+{% endblock %}
